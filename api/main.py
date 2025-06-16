@@ -63,7 +63,8 @@ async def websocket_listener():
                 print("API WebSocket Connected.")
                 async for message in websocket:
                     data = json.loads(message)
-                    if data.get("type") == "initial_data":
+                    print(data.get("type"))
+                    if data.get("type"):
                         latest_data.update(data["data"])
                         latest_data["timestamp"] = int(asyncio.get_event_loop().time())
 
