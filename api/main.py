@@ -1,6 +1,5 @@
 import asyncio
 import json
-from uvicorn import run
 from collections import defaultdict
 from contextlib import asynccontextmanager
 from typing import Union
@@ -173,5 +172,3 @@ async def get_eggs(request: Request):
 @limiter.limit("5/minute")
 async def get_weather(request: Request):
     return latest_data.get("weather", {})
-if __name__ == "__main__":
-    run("api.main:app", host="0.0.0.0", port=3000, reload=False)
