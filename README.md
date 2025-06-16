@@ -1,7 +1,7 @@
-<div style="display: flex; align-items: center;">
+<div style="display: flex; justify-content: center; align-items: center; margin-top: 1em;">
   <h1 style="margin: 0; display: flex; align-items: center; gap: 0.5em;">
-    <img src="assets/Logo.webp" alt="Grow a Garden Logo" width="30" style="vertical-align: middle;" />
-    The (Unofficial) Grow a Garden API
+    <img src="assets/Logo.webp" alt="Grow a Garden Logo" width="40" style="vertical-align: middle;"/>
+    The (Unoffical) Grow a Garden API
   </h1>
 </div>
 
