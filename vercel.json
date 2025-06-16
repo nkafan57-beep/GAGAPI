@@ -1,8 +1,5 @@
 {
-  "builds": [
-    {"src": "/api/main.py", "use": "@now/python"}
-  ],
-  "routes": [
-    {"src": "/(.*)", "dest": "api/main.py"}
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/api/main" }
   ]
 }
