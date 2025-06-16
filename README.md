@@ -1,8 +1,10 @@
 <p align="center">
   <h1 align="center">
-    <img src="assets/Logo.webp" alt="Grow a Garden Logo" width="30" style="vertical-align: middle;"/>
-    The (Unoffical) Grow a Garden API
+      <img src="assets/Logo.webp" alt="Grow a Garden Logo" width="30" style="vertical-align: middle;"/>
+      The (Unoffical) Grow a Garden API
   </h1>
+</p>
+<p align="center">
   <a href="https://github.com/Liriosha/GAGAPI/blob/main/LICENSE">
     <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-yellow.svg" target="_blank" />
   </a>
