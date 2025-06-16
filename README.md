@@ -1,20 +1,18 @@
 <p align="center">
-  <img src="assets/Logo.webp" alt="Grow a Garden Logo" width="30" style="vertical-align: middle;" />
-  <strong style="font-size: 2em; vertical-align: middle;">The (Unofficial) Grow a Garden API</strong>
-</p>
-
-<p align="center">
+  <h1 align="center">
+    <img src="assets/Logo.webp" alt="Grow a Garden Logo" width="30" style="vertical-align: middle;"/>
+    The (Unoffical) Grow a Garden API
+  </h1>
   <a href="https://github.com/Liriosha/GAGAPI/blob/main/LICENSE">
-    <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-yellow.svg" />
+    <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-yellow.svg" target="_blank" />
   </a>
   <a href="https://github.com/Liriosha/GAGAPI/releases">
-    <img alt="Downloads" src="https://img.shields.io/github/downloads/liriosha/GAGAPI/total" />
+    <img alt="Downloads" src="https://img.shields.io/github/downloads/liriosha/GAGAPI/total" target="_blank"/>
   </a>
   <a href="https://github.com/Liriosha/GAGAPI/issues">
-    <img alt="Issues" src="https://img.shields.io/github/issues/liriosha/GAGAPI/total" />
+    <img alt="Issues" src="https://img.shields.io/github/issues/liriosha/GAGAPI/total" target="_blank"/>
   </a>
 </p>
-
 
 An API that provides live stock and weather data from *Grow a Garden*.  
 It connects to a Grow a Garden WebSocket to receive real-time updates and exposes endpoints to access current data about gear, seeds, eggs, cosmetics, event shop items, and weather.
