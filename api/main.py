@@ -174,4 +174,4 @@ async def get_eggs(request: Request):
 async def get_weather(request: Request):
     return latest_data.get("weather", {})
 if __name__ == "__main__":
-    run("main:app", host="0.0.0.0", port=3000, reload=False)
+    run("api.main:app", host="0.0.0.0", port=3000, reload=False)
