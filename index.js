@@ -1,46 +1,56 @@
-const { Client, GatewayIntentBits } = require('discord.js');
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
+import { Client, GatewayIntentBits, SlashCommandBuilder, REST, Routes } from 'discord.js';
+import fetch from 'node-fetch';
 
-// توكن البوت من متغير البيئة
-const TOKEN = process.env.TOKEN;
+const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 
-// ID السيرفر والقناة اللي يبغى يرسل فيها الستوك
-const GUILD_ID = 'هنا حط ID السيرفر';
-const CHANNEL_ID = 'هنا حط ID القناة';
-
-// البيانات اللي تبغى تراقبها في الستوك
-let stockItems = [
-  { name: "Item1", quantity: 10 },
-  { name: "Item2", quantity: 5 },
-  // ممكن تضيف أكثر
-];
-
-client.once('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-  const channel = client.guilds.cache.get(GUILD_ID)?.channels.cache.get(CHANNEL_ID);
-  if (!channel) return console.log("القناة مو موجودة");
-
-  // تحديث الستوك كل 30 ثانية كمثال
-  setInterval(() => {
-    let message = "**تحديث الستوك:**\n";
-    stockItems.forEach(item => {
-      message += `${item.name}: ${item.quantity}\n`;
-    });
-    channel.send(message);
-  }, 30000); // 30000ms = 30 ثانية
+const client = new Client({
+  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages]
 });
 
-client.login(TOKEN);        // يستدعي بيانات الـ API من نفس المشروع
-        try {
-            const response = await axios.get(`http://localhost:${PORT}/stock`);
-            const stockList = response.data.map(item => `${item.name}: ${item.quantity}`).join("\n");
-            message.channel.send(`📦 Stock:\n${stockList}`);
-        } catch (err) {
-            console.error(err);
-            message.channel.send("حدث خطأ عند جلب بيانات المخزون!");
-        }
+const commands = [
+  new SlashCommandBuilder()
+    .setName('stock')
+    .setDescription('يعرض الستوك في القناة المحددة')
+    .addChannelOption(option =>
+      option.setName('channel')
+            .setDescription('اختر القناة')
+            .setRequired(true)
+    )
+].map(cmd => cmd.toJSON());
+
+client.once('ready', async () => {
+  console.log(`✅ Logged in as ${client.user.tag}`);
+
+  const rest = new REST({ version: '10' }).setToken(DISCORD_TOKEN);
+  try {
+    console.log('🔄 تسجيل أوامر السلاش عالمياً...');
+    await rest.put(
+      Routes.applicationCommands(client.user.id), // أخذ ID البوت تلقائياً
+      { body: commands }
+    );
+    console.log('✅ تم تسجيل أوامر السلاش');
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+client.on('interactionCreate', async interaction => {
+  if (!interaction.isChatInputCommand()) return;
+
+  if (interaction.commandName === 'stock') {
+    const channel = interaction.options.getChannel('channel');
+
+    try {
+      const res = await fetch('https://gagapi-144o.onrender.com/stock');
+      const data = await res.json();
+
+      await channel.send(`📦 الستوك الحالي:\n${JSON.stringify(data)}`);
+      await interaction.reply({ content: `تم إرسال الستوك في ${channel}`, ephemeral: true });
+    } catch (err) {
+      console.error(err);
+      await interaction.reply({ content: '❌ حدث خطأ أثناء جلب الستوك', ephemeral: true });
     }
+  }
 });
 
-// تسجيل دخول البوت باستخدام التوكن المخزن في متغيرات البيئة
-bot.login(process.env.TOKEN);
+client.login(DISCORD_TOKEN);
